@@ -10,6 +10,18 @@ provider:
   stage: dev
   region: us-east-1
 
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:BatchGetItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource: "*"
+
 functions:
   getEventsInfo:
     handler: api/getEventsInfo.handler
@@ -23,5 +35,5 @@ functions:
     description: Create a new RSVP entry for a guest
     events:
       - http: 
-        path: /rsvp
-        method: post
+          path: /rsvp
+          method: post

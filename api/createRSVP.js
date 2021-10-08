@@ -7,7 +7,7 @@ module.exports.handler = async (event) => {
   const {
     firstName,
     lastName,
-    isAttending,
+    eventAttendance,
     numberOfGuests,
     phoneNumber,
     email,
@@ -43,7 +43,7 @@ module.exports.handler = async (event) => {
     SK,
     firstName,
     lastName,
-    isAttending,
+    eventAttendance,
     numberOfGuests,
     phoneNumber,
     email,

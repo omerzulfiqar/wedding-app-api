@@ -1,0 +1,27 @@
+service: wedding-app-api
+
+frameworkVersion: '2'
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: '20201221'
+  stage: dev
+  region: us-east-1
+
+functions:
+  getEventsInfo:
+    handler: api/getEventsInfo.handler
+    description: Retrieve the information for all the wedding events
+    events:
+      - http:
+          path: /eventsInformation
+          method: get
+  createRSVP:
+    handler: api/createRSVP.handler
+    description: Create a new RSVP entry for a guest
+    events:
+      - http: 
+        path: /rsvp
+        method: post

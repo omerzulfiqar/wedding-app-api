@@ -28,7 +28,7 @@ functions:
     description: Retrieve the information for all the wedding events
     events:
       - http:
-          path: /eventsInformation
+          path: /eventsInformation/{guestCode}
           method: get
   createRSVP:
     handler: api/createRSVP.handler

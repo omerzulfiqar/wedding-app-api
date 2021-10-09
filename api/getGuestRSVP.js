@@ -4,8 +4,10 @@ const { headers, dynamoTableNames } = require("../config");
 
 module.exports.handler = async (event) => {
   const { firstName, lastName } = event.queryStringParameters;
+  const { guestId } = event.pathParameters;
+  console.log(`Getting RSVP record for ${guestId}`);
 
-//   Check to see if first and last name are not empty
+  //   Check to see if first and last name are not empty
   if (!firstName.length || !lastName.length) {
     return {
       statusCode: 400,
@@ -18,10 +20,6 @@ module.exports.handler = async (event) => {
       }),
     };
   }
-
-  let guestId;
-  guestId = firstName.charAt(0).toLowerCase() + lastName;
-  console.log(`Getting RSVP record for ${guestId}`);
 
   const params = {
     TableName: dynamoTableNames.Guests,

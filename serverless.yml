@@ -1,12 +1,11 @@
 service: wedding-app-api
 
-frameworkVersion: '2'
-
+frameworkVersion: "2"
 
 provider:
   name: aws
   runtime: nodejs12.x
-  lambdaHashingVersion: '20201221'
+  lambdaHashingVersion: "20201221"
   stage: dev
   region: us-east-1
 
@@ -30,10 +29,30 @@ functions:
       - http:
           path: /eventsInformation/{guestCode}
           method: get
+          cors: true
+  getGuestRSVP:
+    handler: api/getGuestRSVP.handler
+    description: Retrieve a pre-existing guest RSVP record
+    events:
+      - http:
+          path: /rsvp/{guestId}
+          method: get
+          cors: true
   createRSVP:
     handler: api/createRSVP.handler
     description: Create a new RSVP entry for a guest
     events:
-      - http: 
+      - http:
           path: /rsvp
           method: post
+          cors: true
+  updateRSVP:
+    handler: api/updateRSVP.handler
+    description: Update existing RSVP record
+    events:
+      - http:
+          path: /rsvp/{guestId}/update
+          method: put
+          cors: true
+plugins:
+  - serverless-offline

@@ -1,0 +1,24 @@
+{
+  "name": "wedding-app-api",
+  "version": "1.0.0",
+  "description": "This is the backend for the Wedding App. It utilizes dynamoDB to store events and guest information. Serverless lambdas are used to perform user requests for creating a new RSVP entry or updating and existing one.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local": "AWS_PROFILE=servelessAdmin sls offline start",
+    "deploy": "sls deploy -v --aws-profile serverlessAdmin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omerzulfiqar/wedding-app-api.git"
+  },
+  "author": "Omer Zulfiqar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omerzulfiqar/wedding-app-api/issues"
+  },
+  "homepage": "https://github.com/omerzulfiqar/wedding-app-api#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1004.0"
+  }
+}

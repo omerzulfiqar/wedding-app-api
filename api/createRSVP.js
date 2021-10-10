@@ -16,26 +16,9 @@ module.exports.handler = async (event) => {
   // Setting guestId and SK
   let guestId, SK;
 
-  try {
-    if (firstName.length && lastName.length) {
-      guestId = firstName.charAt(0).toLowerCase() + lastName;
-      SK = firstName;
-    } else {
-      throw "Missing or invalid entries for firstName and lastName";
-    }
-  } catch (error) {
-    console.error(error);
-    return {
-      statusCode: 400,
-      headers: {
-        ...headers,
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify({
-        message: "Missing or invalid entries for firstName and lastName",
-      }),
-    };
-  }
+  // Add form validation for first name and last name to UI
+  guestId = firstName.charAt(0).toLowerCase() + lastName;
+  SK = firstName;
 
   // New RSVP entry item
   const Item = {
@@ -73,7 +56,7 @@ module.exports.handler = async (event) => {
         "Content-type": "text/plain",
       },
       body: JSON.stringify({
-        message: "Couldn't create new RSVP entry",
+        message: `Couldn't create new RSVP entry for ${firstName} ${lastName}.`,
       }),
     };
   }

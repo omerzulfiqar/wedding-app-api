@@ -8,6 +8,7 @@ module.exports.handler = async (event) => {
   console.log(`Getting RSVP record for ${guestId}`);
 
   //   Check to see if first and last name are not empty
+  // Add this validation to UI
   if (!firstName.length || !lastName.length) {
     return {
       statusCode: 400,
@@ -49,7 +50,7 @@ module.exports.handler = async (event) => {
       statusCode: error.statusCode || 404,
       headers: {
         ...headers,
-        "Content-Type": "text/plain",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         message: `Couldn't find RSVP record for ${firstName} ${lastName}`,

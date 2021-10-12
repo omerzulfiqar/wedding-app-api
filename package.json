@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "AWS_PROFILE=servelessAdmin sls offline start",
+    "local": "AWS_PROFILE=servelessAdmin sls offline start --httpPort 8000",
     "deploy": "sls deploy -v --aws-profile serverlessAdmin"
   },
   "repository": {

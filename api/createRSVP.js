@@ -30,7 +30,6 @@ module.exports.handler = async (event) => {
     numberOfGuests,
     phoneNumber,
     guestCode,
-    allowedEvents,
     createdTs: new Date().toISOString(),
     updatedTs: new Date().toISOString(),
   };

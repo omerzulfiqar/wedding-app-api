@@ -9,10 +9,6 @@ module.exports.handler = async (event) => {
   const params = {
     TableName: dynamoTableNames.Events,
     Key: { guestCode },
-    // KeyConditionExpression: "guestCode = :guestCode",
-    // ExpressionAttributeValues: {
-    //   ":guestCode": guestCode,
-    // },
   };
 
   try {

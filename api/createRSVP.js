@@ -10,6 +10,7 @@ module.exports.handler = async (event) => {
     eventAttendance,
     numberOfGuests,
     phoneNumber,
+    guestCode
   } = JSON.parse(event.body);
 
   // Setting guestId and SK
@@ -28,6 +29,7 @@ module.exports.handler = async (event) => {
     eventAttendance,
     numberOfGuests,
     phoneNumber,
+    guestCode,
     createdTs: new Date().toISOString(),
     updatedTs: new Date().toISOString(),
   };

@@ -36,7 +36,7 @@ module.exports.handler = async (event) => {
 
     // If the user enters a incorrect first and lastname combination but the guestId matches an entry, error should be thrown
     if (!Object.keys(Item).length) {
-      throw `Couldn't find RSVP record for ${firstName} ${lastName}`;
+      throw new Error();
     }
 
     return {

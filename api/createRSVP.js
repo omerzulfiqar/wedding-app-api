@@ -2,6 +2,13 @@ const { dynamoTableNames, headers } = require("../config");
 const AWS = require("aws-sdk");
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
+const sns = new AWS.SNS();
+sns.setSMSAttributes({
+  attributes: {
+    DefaultSMSType: "Promotional",
+  },
+});
+
 module.exports.handler = async (event) => {
   // Form data from client request
   const {
@@ -10,7 +17,7 @@ module.exports.handler = async (event) => {
     eventAttendance,
     numberOfGuests,
     phoneNumber,
-    guestCode
+    guestCode,
   } = JSON.parse(event.body);
 
   // Setting guestId and SK
@@ -34,19 +41,15 @@ module.exports.handler = async (event) => {
     updatedTs: new Date().toISOString(),
   };
 
-  const params = {
-    TableName: dynamoTableNames.Guests,
-    Item: Item,
-    ReturnValuesOnConditionCheckFailure: "ALL_OLD",
-  };
-
+  // Saving to DB
   try {
-    await dynamoDB.put(params).promise();
-    return {
-      statusCode: 200,
-      body: JSON.stringify(Item),
-      headers,
+    const params = {
+      TableName: dynamoTableNames.Guests,
+      Item: Item,
+      ReturnValuesOnConditionCheckFailure: "ALL_OLD",
     };
+
+    await dynamoDB.put(params).promise();
   } catch (error) {
     console.error(error);
     return {
@@ -60,4 +63,34 @@ module.exports.handler = async (event) => {
       }),
     };
   }
+
+  // Sending the sms
+  try {
+    const destinationNumber = "+1" + phoneNumber;
+    console.log("Sending sms to: ", destinationNumber);
+    const message =
+      "Thank you for submitting your RSVP for Omer's & Kayanat's wedding. Make sure to go to the events info page and save our events to your calendar. We look forward to seeing you there!";
+    const params = {
+      Message: message,
+      MessageStructure: "String",
+      PhoneNumber: destinationNumber,
+      MessageAttributes: {
+        "AWS.SNS.SMS.SenderID": {
+          DataType: "String",
+          StringValue: "Rsvp-Bot",
+        },
+      },
+    };
+
+    await sns.publish(params).promise();
+  } catch (error) {
+    console.log("Error sending text message");
+    console.log(error);
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify(Item),
+    headers,
+  };
 };

@@ -19,6 +19,7 @@ provider:
         - dynamodb:DeleteItem
         - dynamodb:Query
         - dynamodb:Scan
+        - sns:Publish
       Resource: "*"
 
 functions:

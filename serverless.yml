@@ -55,5 +55,13 @@ functions:
           path: /rsvp/{guestId}/update
           method: put
           cors: true
+  getAllGuests:
+    handler: api/getAllGuests.handler
+    description: Retrieve all guests
+    events:
+      - http:
+          path: /weddingGuestCount
+          method: get
+          cors: true
 plugins:
   - serverless-offline

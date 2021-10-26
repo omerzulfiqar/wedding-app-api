@@ -45,7 +45,7 @@ module.exports.handler = async (event) => {
   // Update in Dynamo
   try {
     await dynamoDb.put(params).promise();
-
+    console.log("Updating now...");
     return {
       statusCode: 200,
       headers,

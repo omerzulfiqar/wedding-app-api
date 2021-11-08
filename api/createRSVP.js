@@ -50,7 +50,7 @@ module.exports.handler = async (event) => {
     };
 
     await dynamoDB.put(params).promise();
-    console.log(`Creating RSVP: ${Item}`);
+    console.log(`Creating RSVP: ${JSON.stringify(Item)}`);
   } catch (error) {
     console.error(error);
     return {

@@ -63,5 +63,13 @@ functions:
           path: /weddingGuestCount
           method: get
           cors: true
+  eventDayInfo:
+    handler: api/eventDayInfo.handler
+    description: Send event day info to guests
+    events:
+      - http:
+          path: /eventDayInfo
+          method: post
+          cors: true
 plugins:
   - serverless-offline

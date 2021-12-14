@@ -14,6 +14,7 @@ module.exports.handler = async (event) => {
     guests.forEach(async (guest) => {
       const { name, phone } = guest;
       const destinationNumber = "+1" + phone;
+
       const params = {
         Message: message,
         MessageStructure: "String",
@@ -25,8 +26,10 @@ module.exports.handler = async (event) => {
           },
         },
       };
+
       console.log(`Sending event day info to ${name}...`);
-      await sns.publish(params).promise();
+      const res = await sns.publish(params).promise();
+      console.log("SMS Response: ", res);
     });
   } catch (error) {
     console.log(`Error sending event day info text...`);

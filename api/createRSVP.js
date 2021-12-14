@@ -27,6 +27,13 @@ module.exports.handler = async (event) => {
   guestId = firstName.charAt(0).toLowerCase() + lastName;
   SK = firstName;
 
+  let phone;
+  if (phoneNumber.length > 10 && phoneNumber.substring(0, 1) === "1") {
+    phone = phoneNumber.substring(1);
+  } else {
+    phone = phoneNumber;
+  }
+
   // New RSVP entry item
   const Item = {
     guestId,
@@ -35,7 +42,7 @@ module.exports.handler = async (event) => {
     lastName,
     eventAttendance,
     numberOfGuests,
-    phoneNumber,
+    phoneNumber: phone,
     guestCode,
     createdTs: new Date().toISOString(),
     updatedTs: new Date().toISOString(),
@@ -67,7 +74,8 @@ module.exports.handler = async (event) => {
 
   // Sending the sms
   try {
-    const destinationNumber = "+1" + phoneNumber;
+    const destinationNumber = "+1" + phone;
+
     console.log("Sending sms to: ", destinationNumber);
     const message =
       "Thank you for submitting your RSVP for Omer's & Kayanat's wedding. Make sure to go to the events info page and save our events to your calendar. We look forward to seeing you there!";

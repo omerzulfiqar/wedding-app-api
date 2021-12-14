@@ -11,9 +11,10 @@ sns.setSMSAttributes({
 module.exports.handler = async (event) => {
   const { message, guests } = JSON.parse(event.body);
   try {
-    guests.forEach(async (guest) => {
-      const { name, phone } = guest;
-      const destinationNumber = "+1" + phone;
+    guests.forEach(async (guest, i) => {
+      const { firstName, lastName, phoneNumber } = guest;
+      const name = firstName + " " + lastName;
+      const destinationNumber = "+1" + phoneNumber;
 
       const params = {
         Message: message,
@@ -27,9 +28,9 @@ module.exports.handler = async (event) => {
         },
       };
 
-      console.log(`Sending event day info to ${name}...`);
+      console.log(i, `Sending info to ${name} ${destinationNumber}...`);
       const res = await sns.publish(params).promise();
-      console.log("SMS Response: ", res);
+      console.log(res);
     });
   } catch (error) {
     console.log(`Error sending event day info text...`);

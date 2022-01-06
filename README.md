@@ -9,7 +9,9 @@ language: nodeJS
 
 # Wedding App Api
 
-This is the backend for the Wedding App. It utilizes dynamoDB to store events and guest information. Serverless lambdas are used to perform user requests for creating a new RSVP entry or updating and existing one.
+This is the backend for the Wedding App. It utilizes dynamoDB to store events and guest information. Serverless lambdas are used to perform user requests for creating a new RSVP entry or updating and existing one. 
+
+The AWS SNS text message service is utilized to send guests notifications and updates on the wedding events.
 
 ## Usage
 
